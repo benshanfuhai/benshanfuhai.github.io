@@ -20,28 +20,34 @@
     var CONFIG = {"hostname":"benshanfuhai.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Wang&#39;s Blog">
-<meta property="og:url" content="https://benshanfuhai.github.io/index.html">
+  <meta name="description" content="给定一个链表，删除链表中的倒数第n个结点，要求使用单次遍历。19. 删除链表的倒数第 N 个结点 - 力扣（LeetCode）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单次遍历删除单链表中的某个节点">
+<meta property="og:url" content="https://benshanfuhai.github.io/2022/12/16/ac173a597d43/index.html">
 <meta property="og:site_name" content="Wang&#39;s Blog">
+<meta property="og:description" content="给定一个链表，删除链表中的倒数第n个结点，要求使用单次遍历。19. 删除链表的倒数第 N 个结点 - 力扣（LeetCode）">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-16T07:57:48.000Z">
+<meta property="article:modified_time" content="2022-12-16T08:22:11.248Z">
 <meta property="article:author" content="Wang">
+<meta property="article:tag" content="栈">
+<meta property="article:tag" content="双指针">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://benshanfuhai.github.io/">
+<link rel="canonical" href="https://benshanfuhai.github.io/2022/12/16/ac173a597d43/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Wang's Blog</title>
+  <title>单次遍历删除单链表中的某个节点 | Wang's Blog</title>
   
 
 
@@ -154,9 +160,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -172,10 +179,9 @@
       <meta itemprop="name" content="Wang's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/16/ac173a597d43/" class="post-title-link" itemprop="url">单次遍历删除单链表中的某个节点</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          单次遍历删除单链表中的某个节点
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -202,6 +208,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -212,267 +225,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>给定一个链表，删除链表中的倒数第<code>n</code>个结点，<strong>要求使用单次遍历</strong>。<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第 N 个结点 - 力扣（LeetCode）</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/12/16/ac173a597d43/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+        <p>给定一个链表，删除链表中的倒数第<code>n</code>个结点，<strong>要求使用单次遍历</strong>。<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第 N 个结点 - 力扣（LeetCode）</a></p>
+<span id="more"></span>
+
+<h2 id="使用栈实现"><a href="#使用栈实现" class="headerlink" title="使用栈实现"></a>使用栈实现</h2><p>考虑到是删除出链表的倒数第<code>n</code>个结点，符合栈的后进先出的特点，因此可以考虑使用栈来完成。先将链表结点遍历入栈，随后出栈，找到倒数第<code>n</code>个结点后，将此时的栈顶元素的<code>next</code>指针指向<code>next</code>结点的<code>next</code>，以实现删除结点操作。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title function_">removeNthFromEnd_1</span><span class="params">(ListNode head, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">dummy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>(<span class="number">0</span>, head);</span><br><span class="line">    <span class="comment">// 因为删除的是倒数第N个，所以使用栈来实现</span></span><br><span class="line">    Deque&lt;ListNode&gt; stack = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">cur</span> <span class="operator">=</span> dummy;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="literal">null</span>) &#123;</span><br><span class="line">        stack.push(cur);</span><br><span class="line">        cur = cur.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 找到倒数第N个元素，直接删除</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        stack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 弹出栈顶元素</span></span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">prev</span> <span class="operator">=</span> stack.peek();</span><br><span class="line">    <span class="comment">// 将栈顶元素与第N个元素之后的元素进行连接</span></span><br><span class="line">    <span class="comment">// 虽然链表结点被拆开放入栈中，但是每个节点的结构依然保存在其中，即next指针</span></span><br><span class="line">    prev.next = prev.next.next;</span><br><span class="line">    <span class="keyword">return</span> dummy.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：$O(L)$，空间复杂度：$O(L)$。</p>
+<h2 id="使用双指针实现"><a href="#使用双指针实现" class="headerlink" title="使用双指针实现"></a>使用双指针实现</h2><p>除了使用栈外，还可以使用双指针来实现在常数空间下解决此问题。思路如下：</p>
+<p>首先使用<code>first</code>指针向前遍历<code>n</code>个结点，再使用<code>second</code>指针和<code>first</code>指针一起往前移动，当<code>first</code>指针移动到末尾时，<code>second</code>指针刚好指向链表的倒数第<code>n</code>个结点，由于此结点是要删除的结点，所以在开始时可以在链表前添加一个虚拟结点，让<code>second</code>指针指向此结点，则当<code>first</code>遍历到末尾时，<code>second</code>指针恰好指向倒数第<code>n</code>个结点的前一个结点，此时，将其<code>next</code>指针指向倒数第<code>n</code>个结点的下一个结点即可。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title function_">removeNthFromEnd_2</span><span class="params">(ListNode head, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">dummy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>(<span class="number">0</span>, head);</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">first</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="comment">// 将第二个指针指向dummy，则可以在first遍历到链表结尾时，second正好指向要删除节点的前一个位置</span></span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">second</span> <span class="operator">=</span> dummy;</span><br><span class="line">    <span class="comment">// 先将first向前走n个位置</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        first = first.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 当first走到结尾时，second指向待删除节点的前一个位置</span></span><br><span class="line">    <span class="keyword">while</span> (first != <span class="literal">null</span>) &#123;</span><br><span class="line">        first = first.next;</span><br><span class="line">        second = second.next;</span><br><span class="line">    &#125;</span><br><span class="line">    second.next = second.next.next;</span><br><span class="line">    <span class="keyword">return</span> dummy.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：$O(L)$，空间复杂度：$O(1)$。</p>
+
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://benshanfuhai.github.io/2022/12/16/dacc3ce3c278/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Wang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/16/dacc3ce3c278/" class="post-title-link" itemprop="url">Hexo的配置与使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-12-16 14:33:51 / 修改时间：15:49:08" itemprop="dateCreated datePublished" datetime="2022-12-16T14:33:51+08:00">2022-12-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%A4%87%E5%BF%98/" itemprop="url" rel="index"><span itemprop="name">常用备忘</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文介绍了Hexo博客的搭建，以及Next主题的配置，文章的编写及发布操作。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/12/16/dacc3ce3c278/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Wang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://benshanfuhai.github.io/2022/12/16/ac173a597d43/" title="单次遍历删除单链表中的某个节点">https://benshanfuhai.github.io/2022/12/16/ac173a597d43/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E6%A0%88/" rel="tag"># 栈</a>
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag"># 双指针</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://benshanfuhai.github.io/2022/11/01/6b23657474db/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Wang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/01/6b23657474db/" class="post-title-link" itemprop="url">老毛子固件下载地址</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-01 11:12:37" itemprop="dateCreated datePublished" datetime="2022-11-01T11:12:37+08:00">2022-11-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-16 14:36:27" itemprop="dateModified" datetime="2022-12-16T14:36:27+08:00">2022-12-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%A4%87%E5%BF%98/" itemprop="url" rel="index"><span itemprop="name">常用备忘</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>老毛子固件下载地址：<a target="_blank" rel="noopener" href="https://opt.cn2qq.com/padavan/">https://opt.cn2qq.com/padavan/</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/11/01/6b23657474db/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://benshanfuhai.github.io/2022/10/02/8a7c7304460d/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Wang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/02/8a7c7304460d/" class="post-title-link" itemprop="url">Anaconda常用操作命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-02 13:44:25" itemprop="dateCreated datePublished" datetime="2022-10-02T13:44:25+08:00">2022-10-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-16 14:42:24" itemprop="dateModified" datetime="2022-12-16T14:42:24+08:00">2022-12-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文介绍了一些常见的conda命令，以及结合Jupyter的使用，并记录了在这个过程中遇到的一些小问题及解决方法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/10/02/8a7c7304460d/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/16/dacc3ce3c278/" rel="prev" title="Hexo的配置与使用">
+      <i class="fa fa-chevron-left"></i> Hexo的配置与使用
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -525,6 +337,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">使用栈实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8F%8C%E6%8C%87%E9%92%88%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">使用双指针实现</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
